@@ -1,24 +1,39 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+Model relationship
 
-* Ruby version
+User Model
+relation:
+User has_many Missions
+User has_many Group
+column:
+id
+name
+email
+password
 
-* System dependencies
+Mission Model
+relation:
+Mission belongs_to User
+Mission has_many Group
+column:
+id
+start_time
+end_time
+priority
+status
+title
+describe
+tag
 
-* Configuration
 
-* Database creation
+Group Model
+relation:
+Group belongs_to User
+Group belongs_to Mission
+column:
+id
+User_id
+Mission_id
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
