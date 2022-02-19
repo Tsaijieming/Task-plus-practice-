@@ -36,7 +36,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find_by(id: params[:id])
     @task.destroy
-    redirect_to '/' , notice: '修改成功！'
+    redirect_to '/' , notice: '刪除成功！'
   end
 
   private

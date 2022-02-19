@@ -2,12 +2,12 @@ Rails.application.routes.draw do
   root 'tasks#index'
   resources :tasks, except: []
 
-  get "/login", to: "sessions#new"
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+  get "/sign_up", to: "users#sign_up"
+  post "/sign_up/account_verify", to: "users#account_verify"
 
-  namespace :admin do 
-    resources :users
-  end
+  get "/sign_in", to: "users#sign_in"
+  post "/sign_in/check", to: "users#check"
+
+  delete "/sign_out", to: "users#sign_out"
 
 end
