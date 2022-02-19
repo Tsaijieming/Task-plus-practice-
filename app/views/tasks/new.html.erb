@@ -1,0 +1,52 @@
+<h1>新增任務</h1>
+
+<% if @task.errors.any? %>
+  <tr>
+    <% @task.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </tr>
+<% end %>
+
+
+<%= form_for(@task , url: tasks_path) do |form| %>
+    <div class = "fields" >
+      <%= form.label :title, '名稱' %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div class = "fields" >
+      <%= form.label :start_at, '開始' %>
+      <%= form.datetime_field :start_at %>
+    </div>
+
+    <div class = "fields" >
+      <%= form.label :end_at, '結束' %>
+      <%= form.datetime_field :end_at %>
+    </div>
+
+    <div class = "fields" >
+      <%= form.label :status, '狀態' %>
+      <%= form.select(:status, [["待處理","待處理"], ["進行中"], ["已完成"]], {selected: "待處理"}) %>
+    </div>
+
+    <div class = "fields" >
+      <%= form.label :priority, '優先級' %>
+      <%= form.select(:priority, [["0","0"], ["1"], ["2"], ["3"]], {selected: "0"}) %>
+    </div>
+    
+
+    ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝<br>
+
+    <div class = "fields" >
+      <%= form.label :content, '內容' %>
+      <%= form.text_area :content %>
+    </div>
+
+    <div class = "actions" >
+      <%= form.submit '新增' %>
+    </div>
+
+<% end %>
+
+<%= link_to "回到任務總覽", '/' %>

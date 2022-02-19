@@ -8,23 +8,39 @@ class TasksController < ApplicationController
   end
 
   def create
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to '/' , notice: '新增成功！'
+    else
+      render :new
+    end
   end
 
   def edit
+    @task = Task.find_by(id: params[:id])
   end
 
   def update
+    @task = Task.find_by(id: params[:id])
+    if @task.update(task_params)
+      redirect_to '/' , notice: '修改成功！'
+    else
+      render :edit
+    end
   end
 
-
   def show
-
+    @task = Task.find_by(id: params[:id])
   end
 
   def destroy
+    @task = Task.find_by(id: params[:id])
+    @task.destroy
+    redirect_to '/' , notice: '修改成功！'
   end
 
   private
-  def mission_params
+  def task_params
+    params.require(:task).permit(:title, :content, :status, :start_at, :end_at, :priority)
   end
 end
