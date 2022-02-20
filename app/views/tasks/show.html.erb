@@ -1,0 +1,7 @@
+<h3><%= @task.title %></h3>
+<div>狀態：<span><%= @task.status %></span></div>
+<div>開始時間：<span><%= @task.start_at %></span></div>
+<div>結束時間：<span><%= @task.end_at %></span></div>
+<div>優先級別：<span><%= @task.priority %></span></div>
+<div>內容：<%= simple_format(@task.content) %></div>
+<%= link_to "回到任務總覽", '/' %>

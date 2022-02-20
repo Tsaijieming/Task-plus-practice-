@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root 'tasks#index'
+  resources :tasks, except: []
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get "/sign_up", to: "users#sign_up"
+  post "/sign_up/account_verify", to: "users#account_verify"
+
+  get "/sign_in", to: "users#sign_in"
+  post "/sign_in/check", to: "users#check"
+
+  delete "/sign_out", to: "users#sign_out"
+
 end
