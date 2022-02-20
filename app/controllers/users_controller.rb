@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   def sign_up
     @user = User.new
@@ -6,7 +8,7 @@ class UsersController < ApplicationController
   def account_verify
     @user = User.new(user_params)
     if @user.save
-      redirect_to "/" ,notice: '註冊會員成功！'
+      redirect_to '/', notice: '註冊會員成功！'
     else
       render :sign_up
     end
@@ -20,9 +22,9 @@ class UsersController < ApplicationController
     u = User.login(params[:user])
     if u
       session[:session] = u.id
-      redirect_to "/" ,notice: '登入會員成功！'
+      redirect_to '/', notice: '登入會員成功！'
     else
-      redirect_to sign_in_path ,notice: '無此會員 或 密碼錯誤'
+      redirect_to sign_in_path, notice: '無此會員 或 密碼錯誤'
     end
   end
 
@@ -32,6 +34,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def user_params
     params.require(:user).permit(:name, :password, :email)
   end
