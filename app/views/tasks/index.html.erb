@@ -5,32 +5,39 @@
 
 <%= link_to "新增任務", new_task_path %>
 
+<%= form_tag(tasks_path, method: :get) do %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag ("搜尋") %>
+<% end %>
 
-<table>
-  <tr>
-    <td>編輯</td>
-    <td>查看</td>
-    <td>名稱</td>
-    <td>內容</td>
-    <td>狀態</td>
-    <td>開始時間</td>
-    <td>結束時間</td>
-    <td>優先級別</td>
-    <td>刪除</td>
-  </tr>
 
-  <% @tasks.each do |task| %>
+<div id="tasks">
+  <table>
     <tr>
-      <td><%= link_to "編輯", edit_task_path(task) %></td>
-      <td><%= link_to "查看", task_path(task) %></td>
-      <td><%= truncate(task.title, :length => 10) %></td>
-      <td><%= truncate(task.content, :length => 30) %></td>
-      <td><%= task.status %></td>
-      <td><%= task.start_at %></td>
-      <td><%= task.end_at %></td>
-      <td><%= task.priority %></td>
-      <td><%= link_to "刪除", task_path(task), data: { "turbo-method": :delete, "turbo-confirm": "注意，一旦刪除就無法復原！"} %></td>
+      <td>編輯</td>
+      <td>查看</td>
+      <td>名稱</td>
+      <td>內容</td>
+      <td><%= link_to "狀態", :sort => "status" %></td>
+      <td><%= link_to "開始時間", :sort => "start_at" %></td>
+      <td><%= link_to "結束時間", :sort => "end_at" %></td>
+      <td><%= link_to "優先", :sort => "priority" %></td>
+      <td>刪除</td>
+  
     </tr>
-  <% end %>
-
-</table>
+  
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= link_to "編輯", edit_task_path(task) %></td>
+        <td><%= link_to "查看", task_path(task) %></td>
+        <td><%= truncate(task.title, :length => 10) %></td>
+        <td><%= truncate(task.content, :length => 30) %></td>
+        <td><%= task.status %></td>
+        <td><%= task.start_at %></td>
+        <td><%= task.end_at %></td>
+        <td><%= task.priority %></td>
+        <td><%= link_to "刪除", task_path(task), data: { "turbo-method": :delete, "turbo-confirm": "注意，一旦刪除就無法復原！"} %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
