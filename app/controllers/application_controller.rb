@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   private
+
   def user_signed_in?
     session[:session].present?
   end
