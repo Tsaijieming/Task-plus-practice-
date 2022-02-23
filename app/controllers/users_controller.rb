@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to '/', notice: '註冊會員成功！'
     else
-      render :sign_up
+      redirect_to sign_up_path(@user), notice: "資料欄位驗證錯誤"
     end
   end
 

@@ -1,4 +1,13 @@
 <h1>會員登入</h1>
+
+<% if @user.errors.any? %>
+  <tr>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </tr>
+<% end %>
+
 <%= form_for(@user, url: '/sign_in/check') do |form| %>
   <div class="fields">
     <%= form.label :email, '信箱' %>
