@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :password, length: { in: 8..12 }
 
   # validates :title, 
-  #         :presence => {:message => "Title can't be blank." },
-  #         :uniqueness => {:message => "Title already exists."},
-  #         :length => { :maximum => 100, :message => "Must be less than 100 characters"}
+  #           :presence => {:message => "Title can't be blank." },
+  #           :uniqueness => {:message => "Title already exists."},
+  #           :length => { :maximum => 100, :message => "Must be less than 100 characters"}
 end

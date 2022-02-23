@@ -1,33 +1,77 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
+# 英文語系的設定檔，有層級之分，注意都是用空白鍵設定縮排，而非tab 鍵
+# 在rails console 下可這麼確認文字是否有吃到翻譯文件，如：
+# I18n.t('site_language', scope: 'common.navigation', locale: 'zh-TW')
+# I18n.t('字串/功能文字', scope: '層級，對應到下方的翻譯', locale :'zh-TW, en 或jp，該項為選填')
+# 在網頁上則是這樣使用：
+# <%= t('site_language', scope: 'common.navigation') %>
+# 或
+# <%= t('common.navigation.site_language') %>
+# 甚至有更懶人版本：
+# <%= t '.site_language' %>
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      user: 'user'
+      task: 'task'
+    attributes:
+      user:
+        email: 'E-mail'
+        name: 'name'
+        password: 'password'
+      task:
+        title: 'Title'
+        content: 'Content'
+        status: 'Status'
+        start_at: 'Begin date'
+        end_at: 'End date'
+        priority: 'Priority'
+      action:
+        edit: 'Edit'
+        delete: 'Delete'
+        show: 'Show'
+      status:
+        pending: 'Pending'
+        on_going: 'On going'
+        done: 'Done'
+  helpers:
+    placeholder:
+      message:
+        email: 'Your email address'
+  errors:
+    format: '%{attribute}%{message}'
+    messages:
+      accepted: is not acceptable
+      blank: can't be blank
+      confirmation: muse be the same with %{attribute}
+      empty: can't be blank
+      equal_to: isn't not equal to %{count}
+      even: must be even
+      exclusion: must be preserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: isn't included in the list
+      invalid: is invalid
+      less_than: shorter %{count}
+      less_than_or_equal_to: must be lesser or equal to %{count}
+      model_invalid: 'Valid error: %{errors}'
+      not_a_number: is not a number
+      not_an_integer: mube be an integer
+      odd: muse be odd
+      other_than: must be other than %{count} words
+      present: 必須是空白
+      required: 必須存在
+      taken: 已經被使用
+      too_long:
+        one: is too long（最長是一個字）
+        other: is too long（最長是 %{count} 個字）
+      too_short:
+        one: is too short（最短是一個字）
+        other: is too short（minumum is %{count} words）
+      wrong_length:
+        one: 字數錯誤 (必須是一個字)
+        other: 字數錯誤 (必須是 %{count} 個字)
+    template:
+      body: "There are some errors:"
+      header:
+        one: There's one error resulting in "%{model}" from being saved。
+        other: There are %{count} errors resulting in "%{model}" from being saved。

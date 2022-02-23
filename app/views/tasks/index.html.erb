@@ -1,6 +1,8 @@
 <%= link_to "註冊", sign_up_path %>
 <%= link_to "登入", sign_in_path %>
 
+<%= link_to "中文", :locale => 'zh-TW' %>
+<%= link_to "英文", :locale => 'en' %>
 <h1>任務總覽</h1>
 
 <%= link_to "新增任務", new_task_path %>
@@ -14,29 +16,34 @@
 <div id="tasks">
   <table>
     <tr>
-      <td>編輯</td>
-      <td>查看</td>
-      <td>名稱</td>
-      <td>內容</td>
-      <td><%= link_to "狀態", :sort => "status" %></td>
-      <td><%= link_to "開始時間", :sort => "start_at" %></td>
-      <td><%= link_to "結束時間", :sort => "end_at" %></td>
-      <td><%= link_to "優先", :sort => "priority" %></td>
-      <td>刪除</td>
-  
+      <td><%= t('edit', scope: 'activerecord.attributes.action') %></td>
+      <td><%= t('show', scope: 'activerecord.attributes.action') %></td>
+      <td><%= t('title', scope: 'activerecord.attributes.task') %></td>
+      <td><%= t('content', scope: 'activerecord.attributes.task') %></td>
+      <td><%= link_to t('status', scope: 'activerecord.attributes.task'), :sort => "status" %></td>
+      <td><%= link_to t('start_at', scope: 'activerecord.attributes.task'), :sort => "start_at" %></td>
+      <td><%= link_to t('end_at', scope: 'activerecord.attributes.task'), :sort => "end_at" %></td>
+      <td><%= link_to t('priority', scope: 'activerecord.attributes.task'), :sort => "priority" %></td>
+      <td><%= t('delete', scope: 'activerecord.attributes.action') %></td>
     </tr>
   
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= link_to "編輯", edit_task_path(task) %></td>
-        <td><%= link_to "查看", task_path(task) %></td>
+        <td><%= link_to t('edit', scope: 'activerecord.attributes.action'), edit_task_path(task) %></td>
+        <td><%= link_to t('show', scope: 'activerecord.attributes.action'), task_path(task) %></td>
         <td><%= truncate(task.title, :length => 10) %></td>
         <td><%= truncate(task.content, :length => 30) %></td>
-        <td><%= task.status %></td>
+        <% if task.status == '待處理'%>
+        <td><%= t('pending', scope: 'activerecord.attributes.status') %></td>
+        <% elsif task.status == '進行中'%>
+        <td><%= t('on_going', scope: 'activerecord.attributes.status') %></td>
+        <% else task.status == '已完成'%>
+        <td><%= t('done', scope: 'activerecord.attributes.status') %></td>
+        <% end %>
         <td><%= task.start_at %></td>
         <td><%= task.end_at %></td>
         <td><%= task.priority %></td>
-        <td><%= link_to "刪除", task_path(task), data: { "turbo-method": :delete, "turbo-confirm": "注意，一旦刪除就無法復原！"} %></td>
+        <td><%= link_to t('delete', scope: 'activerecord.attributes.action'), task_path(task), data: { "turbo-method": :delete, "turbo-confirm": "注意，一旦刪除就無法復原！"} %></td>
       </tr>
     <% end %>
   </table>

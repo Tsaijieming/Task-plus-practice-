@@ -12,5 +12,6 @@ module TaskPlus
 
     # 設定時區為臺北時間
     config.time_zone = "Taipei"
+
   end
 end
