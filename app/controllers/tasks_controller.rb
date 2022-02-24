@@ -10,7 +10,7 @@ class TasksController < ApplicationController
                Task.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
              end
 
-    @search_result = Task.where('title ILIKE ? or content ILIKE ?', "%#{params[:search]}", "%#{params[:search]}") if params[:search]
+    @search_result = Task.where('title ILIKE ? or content ILIKE ? or status ILIKE ?', "%#{params[:search]}", "%#{params[:search]}", "%#{params[:search]}") if params[:search]
   end
 
   def new
