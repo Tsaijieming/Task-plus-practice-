@@ -46,6 +46,8 @@ gem 'bootsnap', require: false
 
 gem 'ransack', '~> 2.5'
 
+gem 'kaminari', '~> 1.2', '>= 1.2.2'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
