@@ -4,10 +4,10 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @tasks = Task.order(created_at: :desc)
-    if params[:sort] == 'status' || 'start_at' || 'end_at' || 'priority'
-      @tasks = Task.order(params[:sort])
-      #@tasks_order = Task.order(sort_column + " " + sort_direction)
+    if params[:sort] == nil
+      @tasks = Task.order(created_at: :desc).page(params[:page]).per(20)
+    else
+      @tasks = Task.order(sort_column + " " + sort_direction).page(params[:page]).per(20)
     end
 
     if params[:search]
@@ -60,7 +60,7 @@ class TasksController < ApplicationController
   end
 
   def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    Task.column_names.include?(params[:sort]) ? params[:sort] : "title"
   end
   
   def sort_direction
