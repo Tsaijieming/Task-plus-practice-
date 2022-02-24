@@ -1,8 +1,19 @@
+<% if @user.errors.any? %>
+  <tr>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </tr>
+<% end %>
+
 <h1>會員註冊</h1>
 <%= form_for(@user, url: '/sign_up/account_verify') do |form| %>
   <div class="fields">
     <%= form.label :email, '信箱' %>
     <%= form.email_field :email  %>
+    <% @user.errors.full_messages_for(:email).each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
   </div>
 
   <div class="fields">
