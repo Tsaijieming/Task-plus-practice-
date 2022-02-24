@@ -3,15 +3,17 @@
 
 <%= link_to "中文", :locale => 'zh-TW' %>
 <%= link_to "English", :locale => 'en' %>
-<h1>任務總覽</h1>
+<h1 class="font-bold text-4xl text-blue-500">任務總覽</h1>
 
 <%= link_to "新增任務", new_task_path %>
 
 <%= form_tag(tasks_path, method: :get) do %>
   <%= text_field_tag(:search, params[:search]) %>
-  <%= submit_tag ("搜尋") %>
+  <%= submit_tag "搜尋" %>
 <% end %>
+<%= render "shared/result" %>
 
+======================================<br>
 
 <div id="tasks">
   <table>
@@ -26,8 +28,6 @@
       <td><%= sortable "priority" %></td>
       <td><%= t('delete', scope: 'activerecord.attributes.action') %></td>
     </tr>
-  
-
 
     <% @tasks.each do |task| %>
       <tr>

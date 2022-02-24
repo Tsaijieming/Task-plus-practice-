@@ -7,8 +7,15 @@ class TasksController < ApplicationController
     @tasks = Task.order(created_at: :desc)
     if params[:sort] == 'status' || 'start_at' || 'end_at' || 'priority'
       @tasks = Task.order(params[:sort])
-      #@tasks = Task.order(sort_column + " " + sort_direction)
+      #@tasks_order = Task.order(sort_column + " " + sort_direction)
     end
+
+    if params[:search]
+    @search_result = Task.where("title ILIKE ? or content ILIKE ?", "%#{params[:search]}", "%#{params[:search]}")
+    end
+  end
+
+  def search
   end
 
   def new
