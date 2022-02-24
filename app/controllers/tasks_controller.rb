@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def index
-    @tasks = Task.order(created_at: :desc)
-    # if params[:sort] == 'status' || 'start_at' || 'end_at' || 'priority'
-    #   @tasks = Task.all.order(params[:sort])
-    # end
+    @tasks = if params[:sort].nil?
+               Task.order(created_at: :desc).page(params[:page]).per(20)
+             else
+               Task.order("#{sort_column} #{sort_direction}").page(params[:page]).per(20)
+             end
+
+    @search_result = Task.where('title ILIKE ? or content ILIKE ? or status ILIKE ?', "%#{params[:search]}", "%#{params[:search]}", "%#{params[:search]}") if params[:search]
   end
 
   def new
@@ -48,5 +53,13 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :content, :status, :start_at, :end_at, :priority)
+  end
+
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? params[:sort] : 'title'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

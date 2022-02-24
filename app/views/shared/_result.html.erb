@@ -1,0 +1,38 @@
+<div id="tasks">
+  <table>
+    <tr>
+      <td><%= t('edit', scope: 'activerecord.attributes.action') %></td>
+      <td><%= t('show', scope: 'activerecord.attributes.action') %></td>
+      <td><%= t('title', scope: 'activerecord.attributes.task') %></td>
+      <td><%= t('content', scope: 'activerecord.attributes.task') %></td>
+      <td><%= sortable "status" %></td>
+      <td><%= sortable "start_at" %></td>
+      <td><%= sortable "end_at" %></td>
+      <td><%= sortable "priority" %></td>
+      <td><%= t('delete', scope: 'activerecord.attributes.action') %></td>
+    </tr>
+
+    <% if @search_result %>
+      <% @search_result.each do |result| %>
+        <tr>
+          <td><%= link_to t('edit', scope: 'activerecord.attributes.action'), edit_task_path(result) %></td>
+          <td><%= link_to t('show', scope: 'activerecord.attributes.action'), task_path(result) %></td>
+          <td><%= truncate(result.title, :length => 10) %></td>
+          <td><%= truncate(result.content, :length => 30) %></td>
+          <% if result.status == '待處理' %>
+          <td><%= t('pending', scope: 'activerecord.attributes.status') %></td>
+          <% elsif result.status == '進行中'%>
+          <td><%= t('on_going', scope: 'activerecord.attributes.status') %></td>
+          <% else result.status == '已完成'%>
+          <td><%= t('done', scope: 'activerecord.attributes.status') %></td>
+          <% end %>
+          <td><%= result.start_at %></td>
+          <td><%= result.end_at %></td>
+          <td><%= result.priority %></td>
+          <td><%= link_to t('delete', scope: 'activerecord.attributes.action'), task_path(result), data: { "turbo-method": :delete, "turbo-confirm": "注意，一旦刪除就無法復原！"} %></td>
+        </tr>
+      <% end %>
+    <% end %>
+
+  </table>
+</div>
