@@ -2,7 +2,7 @@
 <%= link_to "登入", sign_in_path %>
 
 <%= link_to "中文", :locale => 'zh-TW' %>
-<%= link_to "英文", :locale => 'en' %>
+<%= link_to "English", :locale => 'en' %>
 <h1>任務總覽</h1>
 
 <%= link_to "新增任務", new_task_path %>
@@ -20,20 +20,22 @@
       <td><%= t('show', scope: 'activerecord.attributes.action') %></td>
       <td><%= t('title', scope: 'activerecord.attributes.task') %></td>
       <td><%= t('content', scope: 'activerecord.attributes.task') %></td>
-      <td><%= link_to t('status', scope: 'activerecord.attributes.task'), :sort => "status" %></td>
-      <td><%= link_to t('start_at', scope: 'activerecord.attributes.task'), :sort => "start_at" %></td>
-      <td><%= link_to t('end_at', scope: 'activerecord.attributes.task'), :sort => "end_at" %></td>
-      <td><%= link_to t('priority', scope: 'activerecord.attributes.task'), :sort => "priority" %></td>
+      <td><%= sortable "status" %></td>
+      <td><%= sortable "start_at" %></td>
+      <td><%= sortable "end_at" %></td>
+      <td><%= sortable "priority" %></td>
       <td><%= t('delete', scope: 'activerecord.attributes.action') %></td>
     </tr>
   
+
+
     <% @tasks.each do |task| %>
       <tr>
         <td><%= link_to t('edit', scope: 'activerecord.attributes.action'), edit_task_path(task) %></td>
         <td><%= link_to t('show', scope: 'activerecord.attributes.action'), task_path(task) %></td>
         <td><%= truncate(task.title, :length => 10) %></td>
         <td><%= truncate(task.content, :length => 30) %></td>
-        <% if task.status == '待處理'%>
+        <% if task.status == '待處理' %>
         <td><%= t('pending', scope: 'activerecord.attributes.status') %></td>
         <% elsif task.status == '進行中'%>
         <td><%= t('on_going', scope: 'activerecord.attributes.status') %></td>

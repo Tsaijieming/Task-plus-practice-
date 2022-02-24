@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def index
     @tasks = Task.order(created_at: :desc)
-    # if params[:sort] == 'status' || 'start_at' || 'end_at' || 'priority'
-    #   @tasks = Task.all.order(params[:sort])
-    # end
+    if params[:sort] == 'status' || 'start_at' || 'end_at' || 'priority'
+      @tasks = Task.order(params[:sort])
+      #@tasks = Task.order(sort_column + " " + sort_direction)
+    end
   end
 
   def new
@@ -45,8 +48,15 @@ class TasksController < ApplicationController
   end
 
   private
-
   def task_params
     params.require(:task).permit(:title, :content, :status, :start_at, :end_at, :priority)
+  end
+
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
